@@ -1,0 +1,35 @@
+src = GEGLclass.cpp GEGLwrapper.cpp
+obj = $(src:.cpp=.o)
+dep = GEGLclass.h GEGLwrapper.h
+
+PKG = gegl-wrapper.pc
+OUT = libgegl-wrapper.a
+LDFLAGS = `pkg-config --libs --cflags gegl-0.3`
+CC = g++
+
+.cpp.o: $(obj)
+	$(CC) -o $@ -c $^ $(LDFLAGS)
+
+$(OUT): $(obj)
+	ar crv $(OUT) $(obj)
+
+.PHONY: install
+install: $(OUT)
+	mkdir -p $(PREFIX)/lib
+	mkdir -p $(PREFIX)/include/gegl-wrapper
+	cp $(OUT) $(PREFIX)/lib/$(OUT)
+	cp $(dep) $(PREFIX)/include/gegl-wrapper
+	cp gegl-wrapper.pc $(PREFIX)/lib/pkgconfig
+
+.PHONY: uninstall
+uninstall:
+	rm -f $(PREFIX)/lib/gegl-wrapper/$(OUT)
+	rm -f $(PREFIX)/include/gegl-wrapper/GEGLclass.h
+	rm -f $(PREFIX)/include/gegl-wrapper/GEGLwrapper.h
+	rm -f $(PREFIX)/lib/pkgconfig/gegl-wrapper.pc
+
+.PHONY: clean
+clean:
+	rm -f $(obj) $(OUT)
+	rm -f gegl-wrapper.pc
+	rm -f Makefile
