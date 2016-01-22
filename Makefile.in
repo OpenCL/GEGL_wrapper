@@ -18,8 +18,8 @@ install: $(OUT)
 	mkdir -p $(PREFIX)/lib
 	mkdir -p $(PREFIX)/include/gegl-wrapper
 	cp $(OUT) $(PREFIX)/lib/$(OUT)
-	cp $(dep) $(PREFIX)/include/gegl-wrapper
-	cp gegl-wrapper.pc $(PREFIX)/lib/pkgconfig
+	cp $(dep) $(PREFIX)/include/gegl-wrapper/
+	cp gegl-wrapper.pc $(PREFIX)/lib/pkgconfig/gegl-wrapper.pc
 
 .PHONY: uninstall
 uninstall:

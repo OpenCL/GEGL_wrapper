@@ -13,11 +13,17 @@ extern "C" {
                	return new GEGLclass(argc, argv);
         }
 
-	void get_buffer(GEGLclass *g, float **input, float **output) {
+	void get_in_out(GEGLclass *g, float **input, float **output) {
 		if (g == NULL)
 			return;
-		g->get_buffer(input, output);
+		g->get_in_out(input, output);
 	}
+
+	GeglBuffer* get_buffer(GEGLclass *g) {
+		if (g == NULL)
+			return 0;
+                return g->get_buffer();
+        }
 
         int get_x(GEGLclass *g) {
 		if (g == NULL)

@@ -40,12 +40,16 @@ GEGLclass::~GEGLclass() {
 	gegl_exit();
 }
 
-void GEGLclass::get_buffer(float **input, float **output) {
+void GEGLclass::get_in_out(float **input, float **output) {
 	in_buf = g_new(float, src_rect.width * src_rect.height * 4);
   	out_buf = g_new0(float, src_rect.width * src_rect.height * 4);
   	gegl_buffer_get(buffer, &src_rect, 1.0, format, in_buf, GEGL_AUTO_ROWSTRIDE, GEGL_ABYSS_NONE);
 	*input = in_buf;
 	*output = out_buf;
+}
+
+GeglBuffer* GEGLclass::get_buffer() {
+ 	return buffer;
 }
 
 int GEGLclass::get_x() {

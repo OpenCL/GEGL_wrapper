@@ -19,7 +19,8 @@ class GEGLclass {
         ~GEGLclass();
         
 	public:
-		void get_buffer(float **, float **);
+		void get_in_out(float **, float **);
+		GeglBuffer * get_buffer();
 		int get_x();
 		int get_y();
 		int get_width();
